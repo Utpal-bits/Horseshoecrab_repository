@@ -153,9 +153,9 @@ def show_homepage():
             <h2>How to Use This Platform</h2>
             <p>
                 To get started, open the sidebar menu by clicking the 
-                <span style='font-size: 1.2em; font-weight: bold; color: yellow;'>&gt;</span> 
+                <span style='font-size: 1.2em; font-weight: bold; color: yellow;'>>&gt;</span> 
                 icon at the top-left of your screen. 
-                (<b>Tip:</b> Click here!)
+                (<b>Tip:</b> Click on to >> )
             </p>
             <p>From the sidebar, you can navigate to:</p>
             <ul>
@@ -314,4 +314,5 @@ if data is not None:
         show_dashboard_page()
     elif page == "Search Repository":
         show_results_page()
+
 
