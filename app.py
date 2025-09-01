@@ -62,6 +62,7 @@ st.markdown("""
         padding: 2rem;
         border-radius: 10px;
         color: #e0e1dd;
+        height: 100%;
     }
     .homepage-content h2 {
         color: #ffffff;
@@ -112,15 +113,16 @@ if data is not None and page == "Search Repository":
     st.sidebar.header("Advanced Search Filters")
     
     # Year Filter
-    min_year, max_year = int(data['Publication Year'].min()), int(data['Publication Year'].max())
+    min_year = int(data['Publication Year'].min()) if data['Publication Year'].min() > 0 else 1900
+    max_year = int(data['Publication Year'].max()) if data['Publication Year'].max() > 0 else 2024
     year_range = st.sidebar.slider("Publication Year Range", min_year, max_year, (min_year, max_year))
 
     # Publication Type Filter
-    pub_types = sorted(data['Publication Type'].unique())
+    pub_types = sorted([pt for pt in data['Publication Type'].unique() if pt])
     selected_pub_types = st.sidebar.multiselect("Publication Type", pub_types, default=pub_types)
     
     # Country Filter
-    countries = sorted(data['Source Country'].unique())
+    countries = sorted([c for c in data['Source Country'].unique() if c])
     selected_countries = st.sidebar.multiselect("Source Country", countries, default=countries)
 
 st.sidebar.markdown("---")
@@ -128,44 +130,57 @@ st.sidebar.caption("Developed by Utpal Mallick, ViStA Lab, BITS Pilani, Goa Camp
 st.sidebar.caption("Data sourced from The Lens, PoP software, Google Scholar, etc.")
 
 # --- Page Functions ---
-
 def show_homepage():
     st.markdown("<h1 style='text-align: center; color: white;'>Horseshoe Crab Research Repository</h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; color: #e0e1dd; font-size: 1.2rem;'>Your gateway to the fascinating world of an ancient marine marvel.</p>", unsafe_allow_html=True)
     st.markdown("---")
-    
-    st.markdown("""
-    <div class="homepage-content">
-        <h2>Welcome to the Repository</h2>
-        <p>This platform is a centralized, searchable database dedicated to the scientific literature on horseshoe crabs. By aggregating data from diverse sources like The Lens, Google Scholar, and others, we aim to provide a comprehensive resource for researchers, students, conservationists, and anyone curious about these incredible creatures. </p>
-        
-        <h2>How to Use This Platform</h2>
-        <ol>
-            <li><b>Search Repository:</b> Navigate to this page to begin your search. Use the main search bar for broad queries on titles, authors, or keywords.</li>
-            <li><b>Advanced Filters:</b> Use the filters in the sidebar to narrow your results by publication year, document type (e.g., journal article, patent), and source country.</li>
-            <li><b>Data Dashboard:</b> Visit this page for a high-level visual overview of the research landscape, including publication trends over time and top contributing countries.</li>
-        </ol>
 
-        <h2>Discover the World of Horseshoe Crabs</h2>
-        <p>Horseshoe crabs are not true crabs but are more closely related to spiders and scorpions. They are often called "living fossils" because they have existed for over 450 million years, predating the dinosaurs.</p>
-        
-        <h4>Global Species</h4>
-        There are four living species of horseshoe crabs in the world:
-        <ul>
-            <li><b><i>Limulus polyphemus</i>:</b> Found along the Atlantic coast of North America and the Gulf of Mexico.</li>
-            <li><b><i>Tachypleus tridentatus</i>:</b> Found in Southeast and East Asia.</li>
-            <li><b><i>Tachypleus gigas</i>:</b> Found in Southeast and South Asia.</li>
-            <li><b><i>Carcinoscorpius rotundicauda</i>:</b> Found along the coasts of India and Southeast Asia.</li>
-        </ul>
-        
-        <h4>A Biomedical Marvel</h4>
-        <p>The most remarkable feature of the horseshoe crab is its blue, copper-based blood. This blood contains amebocytes, which are crucial for producing Limulus Amebocyte Lysate (LAL). The LAL test is the global standard for detecting bacterial endotoxins in vaccines, injectable drugs, and medical devices, ensuring patient safety worldwide.</p>
-        
-        <h4>Ecological and Conservation Importance</h4>
-        <p>Horseshoe crabs play a vital role in coastal ecosystems. Their eggs are a critical food source for migratory shorebirds, such as the Red Knot. Unfortunately, all four species face significant threats from habitat loss and overharvesting, making conservation research more important than ever.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    col1, col2 = st.columns(2, gap="large")
 
+    with col1:
+        st.markdown("""
+        <div class="homepage-content">
+            <h2>Welcome & How-To</h2>
+            <p>This platform is a centralized, searchable database dedicated to the scientific literature on horseshoe crabs. We aim to provide a comprehensive resource for researchers, students, and conservationists.</p>
+            
+            <h4>How to Use This Platform</h4>
+            <ol>
+                <li><b>Search Repository:</b> Navigate to this page to begin your search. Use the main search bar for broad queries.</li>
+                <li><b>Advanced Filters:</b> Use the filters in the sidebar to narrow your results by publication year, document type, and source country.</li>
+                <li><b>Data Dashboard:</b> Visit this page for a visual overview of the research landscape.</li>
+            </ol>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="homepage-content" style="margin-top: 2rem;">
+            <h2>A Biomedical Marvel</h2>
+            <p>The most remarkable feature of the horseshoe crab is its blue, copper-based blood. This blood contains amebocytes, which are crucial for producing Limulus Amebocyte Lysate (LAL). The LAL test is the global standard for detecting bacterial endotoxins in vaccines, injectable drugs, and medical devices, ensuring patient safety worldwide.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("""
+        <div class="homepage-content">
+            <h2>Discover the Living Fossil</h2>
+            <p>Horseshoe crabs are not true crabs but are more closely related to spiders and scorpions. They are often called "living fossils" because they have existed for over 450 million years, predating the dinosaurs.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.image("https://images.pexels.com/photos/4663737/pexels-photo-4663737.jpeg", caption="The Atlantic horseshoe crab, Limulus polyphemus.")
+        
+        st.markdown("""
+        <div class="homepage-content" style="margin-top: 1.2rem;">
+            <h4>Global Species</h4>
+            There are four living species of horseshoe crabs:
+            <ul>
+                <li><b><i>Limulus polyphemus</i>:</b> North America & Gulf of Mexico.</li>
+                <li><b><i>Tachypleus tridentatus</i>:</b> Southeast and East Asia.</li>
+                <li><b><i>Tachypleus gigas</i>:</b> Southeast and South Asia.</li>
+                <li><b><i>Carcinoscorpius rotundicauda</i>:</b> India and Southeast Asia.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
 def show_dashboard_page():
     st.title("📊 Data Dashboard")
@@ -174,7 +189,7 @@ def show_dashboard_page():
     if data is not None:
         # Publications Over Time
         st.subheader("Publications Over Time")
-        yearly_counts = data[data['Publication Year'] > 0]['Publication Year'].value_counts().sort_index()
+        yearly_counts = data[data['Publication Year'] > 1900]['Publication Year'].value_counts().sort_index()
         st.bar_chart(yearly_counts)
 
         # Top Source Countries
@@ -184,7 +199,7 @@ def show_dashboard_page():
 
         # Publication Types
         st.subheader("Publication Type Distribution")
-        pub_type_counts = data[data['Publication Type'] != '']['Publication Type'].value_acts().nlargest(10)
+        pub_type_counts = data[data['Publication Type'] != '']['Publication Type'].value_counts().nlargest(10)
         st.bar_chart(pub_type_counts)
 
 def show_results_page():
@@ -209,7 +224,7 @@ def show_results_page():
             return results
         return pd.DataFrame() # Return empty if no query
 
-    search_query = st.text_input("Search query", value=st.session_state.get('search_query', ''), key="search_bar")
+    search_query = st.text_input("Search query", value=st.session_state.get('search_query', ''), key="search_bar", placeholder="Search by title, author, or keyword...")
     if search_query != st.session_state.get('search_query', ''):
         st.session_state.search_query = search_query
         st.session_state.current_page = 1 # Reset to first page on new search
