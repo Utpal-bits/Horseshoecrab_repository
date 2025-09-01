@@ -146,37 +146,28 @@ def show_homepage():
     with col1:
         st.markdown("""
         <div class="homepage-content card-1">
-            <h2>Welcome & How-To</h2>
-            <p>This platform is a centralized, searchable database dedicated to the scientific literature on horseshoe crabs. We aim to provide a comprehensive resource for researchers, students, and conservationists.</p>
-            
-            <h4>How to Use This Platform</h4>
-            <ol>
-                <li><b>Search Repository:</b> Navigate to this page to begin your search. Use the main search bar for broad queries.</li>
-                <li><b>Advanced Filters:</b> Use the filters in the sidebar to narrow your results by publication year, document type, and source country.</li>
-                <li><b>Data Dashboard:</b> Visit this page for a visual overview of the research landscape.</li>
-            </ol>
+            <h2>How to use:</h2>
+            <p>Navigate to this page to begin your search. Use the main search bar for broad queries. Use the filters in the sidebar to narrow your results by publication year, document type, and source country. Visit data dashboard page for a visual overview of the research landscape.</p>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown("""
-        <div class="homepage-content card-2" style="margin-top: 2rem;">
-            <h2>A Biomedical Marvel</h2>
-            <p>The most remarkable feature of the horseshoe crab is its blue, copper-based blood. This blood contains amebocytes, which are crucial for producing Limulus Amebocyte Lysate (LAL). The LAL test is the global standard for detecting bacterial endotoxins in vaccines, injectable drugs, and medical devices, ensuring patient safety worldwide.</p>
+        <div class="homepage-content card-3" style="margin-top: 2rem;">
+            <h2>Discover the Living Fossil</h2>
+            <p>Horseshoe crabs are not true crabs but are more closely related to spiders and scorpions. They are often called "living fossils" because they have existed for over 450 million years, predating the dinosaurs.</p>
         </div>
         """, unsafe_allow_html=True)
 
     with col2:
         st.markdown("""
-        <div class="homepage-content card-3">
-            <h2>Discover the Living Fossil</h2>
-            <p>Horseshoe crabs are not true crabs but are more closely related to spiders and scorpions. They are often called "living fossils" because they have existed for over 450 million years, predating the dinosaurs.</p>
+        <div class="homepage-content card-2">
+            <h2>A Biomedical Marvel</h2>
+            <p>The most remarkable feature of the horseshoe crab is its blue, copper-based blood. This blood contains amebocytes, which are crucial for producing Limulus Amebocyte Lysate (LAL). The LAL test is the global standard for detecting bacterial endotoxins in vaccines, injectable drugs, and medical devices, ensuring patient safety worldwide.</p>
         </div>
         """, unsafe_allow_html=True)
         
-        st.image("https://images.pexels.com/photos/1682553/pexels-photo-1682553.jpeg", caption="A horseshoe crab (Limulus polyphemus) on the shore.")
-        
         st.markdown("""
-        <div class="homepage-content card-4" style="margin-top: 1.2rem;">
+        <div class="homepage-content card-4" style="margin-top: 2rem;">
             <h4>Global Species</h4>
             There are four living species of horseshoe crabs:
             <ul>
