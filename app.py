@@ -29,9 +29,13 @@ def get_pub_type_class(pub_type_string):
 
 def highlight_text(text, query):
     """Highlights the search query within a given text."""
-    if query:
+    if query and text:
         # Use regex to find all occurrences of the query, case-insensitive
-        return re.sub(f'({re.escape(query)})', r'<mark>\1</mark>', text, flags=re.IGNORECASE)
+        try:
+            return re.sub(f'({re.escape(query)})', r'<mark>\1</mark>', str(text), flags=re.IGNORECASE)
+        except re.error:
+            # Fallback for invalid regex patterns
+            return text
     return text
 
 # --- Custom CSS ---
@@ -95,7 +99,7 @@ if 'page' not in st.session_state or st.session_state.page == 'Home':
 def load_data(file_path):
     try:
         df = pd.read_csv(file_path)
-        # Preprocessing
+        # Preprocessing: Fill missing values in key text columns to prevent errors during search
         text_columns = ['Title', 'Author/s', 'Keywords', 'Abstract', 'Source Country', 'Publication Type']
         for col in text_columns:
             if col in df.columns:
@@ -105,7 +109,7 @@ def load_data(file_path):
             df['Publication Year'] = pd.to_numeric(df['Publication Year'], errors='coerce').fillna(0).astype(int)
         return df
     except FileNotFoundError:
-        st.error(f"Error: The file '{file_path}' was not found.")
+        st.error(f"Error: The file '{file_path}' was not found. Please make sure 'research_data.csv' is in the root directory.")
         return None
 
 data = load_data('research_data.csv')
@@ -205,7 +209,7 @@ def show_results_page():
     def perform_search():
         query = st.session_state.get('search_query', '').lower()
         
-        # Filter data based on sidebar selections
+        # Filter data based on sidebar selections first
         filtered_data = data[
             (data['Publication Year'].between(year_range[0], year_range[1])) &
             (data['Publication Type'].isin(selected_pub_types)) &
@@ -213,15 +217,17 @@ def show_results_page():
         ]
 
         if query:
+            # Search across multiple columns on the already filtered data
             results = filtered_data[
-                filtered_data['Title'].str.lower().str.contains(query) |
-                filtered_data['Author/s'].str.lower().str.contains(query) |
-                filtered_data['Keywords'].str.lower().str.contains(query)
+                filtered_data['Title'].str.lower().str.contains(query, na=False) |
+                filtered_data['Author/s'].str.lower().str.contains(query, na=False) |
+                filtered_data['Keywords'].str.lower().str.contains(query, na=False) |
+                filtered_data['Abstract'].str.lower().str.contains(query, na=False)
             ]
             return results
-        return pd.DataFrame() # Return empty if no query
+        return pd.DataFrame() # Return empty DataFrame if no search query
 
-    search_query = st.text_input("Search query", value=st.session_state.get('search_query', ''), key="search_bar", placeholder="Search by title, author, or keyword...")
+    search_query = st.text_input("Search query", value=st.session_state.get('search_query', ''), key="search_bar", placeholder="Search by title, author, keyword, or abstract...")
     if search_query != st.session_state.get('search_query', ''):
         st.session_state.search_query = search_query
         st.session_state.current_page = 1 # Reset to first page on new search
