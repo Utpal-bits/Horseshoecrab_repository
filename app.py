@@ -22,31 +22,32 @@ st.markdown("""
         white-space: nowrap;
         vertical-align: baseline;
         border-radius: 0.375rem;
-        color: #004085;
-        background-color: #cce5ff;
+        color: #ffffff;
+        background-color: #333333;
         margin-bottom: 10px;
     }
     .result-container {
-        border: 1px solid #e1e4e8;
+        background-color: #1a1a1a;
+        border: 1px solid #555555;
         border-radius: 8px;
         padding: 1.5rem;
         margin-bottom: 1rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.04);
-        transition: box-shadow 0.3s ease-in-out;
-    }
-    .result-container:hover {
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+        color: #f0f0f0;
     }
     .result-title {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         font-weight: 600;
-        color: #24292e;
+        color: #ffffff;
         margin-bottom: 0.5rem;
     }
     .result-meta {
-        font-size: 0.9rem;
-        color: #586069;
+        font-size: 1.0rem;
+        color: #cccccc;
         margin-bottom: 0.5rem;
+    }
+    /* Ensure text inside the expander (for the abstract) is also visible */
+    .result-container .st-expander p {
+        color: #f0f0f0 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -158,5 +159,4 @@ if data is not None:
             st.warning("No results found for your query. Please try different search terms.")
     else:
         st.info("Enter a query in the search bar above to see results.")
-
 
