@@ -216,6 +216,14 @@ def show_results_page():
 
     if not results.empty:
         st.success(f"Found **{len(results)}** matching result(s) for '{st.session_state.search_query}'.")
+
+        # --- Display Statistics ---
+        if 'Publication Type' in results.columns:
+            stats = results['Publication Type'].value_counts()
+            with st.expander("📊 View Result Statistics"):
+                for pub_type, count in stats.items():
+                    st.markdown(f"- **{pub_type}:** {count} result(s)")
+        
         for _, row in results.iterrows():
             st.markdown('<div class="result-container">', unsafe_allow_html=True)
             
@@ -245,3 +253,4 @@ if data is not None:
         show_homepage()
     else:
         show_results_page()
+
