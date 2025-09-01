@@ -55,6 +55,22 @@ st.markdown("""
     
     /* Highlight Style */
     mark { background-color: #f7b801; color: black; border-radius: 3px; padding: 0 2px; }
+
+    /* Homepage Content Styling */
+    .homepage-content {
+        background-color: rgba(13, 27, 42, 0.85); /* Semi-transparent dark blue */
+        padding: 2rem;
+        border-radius: 10px;
+        color: #e0e1dd;
+    }
+    .homepage-content h2 {
+        color: #ffffff;
+        border-bottom: 2px solid #415a77;
+        padding-bottom: 0.5rem;
+    }
+    .homepage-content li {
+        margin-bottom: 0.5rem;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -115,7 +131,41 @@ st.sidebar.caption("Data sourced from The Lens, PoP software, Google Scholar, et
 
 def show_homepage():
     st.markdown("<h1 style='text-align: center; color: white;'>Horseshoe Crab Research Repository</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #e0e1dd;'>Discover the world of horseshoe crab research. Select a page from the sidebar to begin.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #e0e1dd; font-size: 1.2rem;'>Your gateway to the fascinating world of an ancient marine marvel.</p>", unsafe_allow_html=True)
+    st.markdown("---")
+    
+    st.markdown("""
+    <div class="homepage-content">
+        <h2>Welcome to the Repository</h2>
+        <p>This platform is a centralized, searchable database dedicated to the scientific literature on horseshoe crabs. By aggregating data from diverse sources like The Lens, Google Scholar, and others, we aim to provide a comprehensive resource for researchers, students, conservationists, and anyone curious about these incredible creatures. </p>
+        
+        <h2>How to Use This Platform</h2>
+        <ol>
+            <li><b>Search Repository:</b> Navigate to this page to begin your search. Use the main search bar for broad queries on titles, authors, or keywords.</li>
+            <li><b>Advanced Filters:</b> Use the filters in the sidebar to narrow your results by publication year, document type (e.g., journal article, patent), and source country.</li>
+            <li><b>Data Dashboard:</b> Visit this page for a high-level visual overview of the research landscape, including publication trends over time and top contributing countries.</li>
+        </ol>
+
+        <h2>Discover the World of Horseshoe Crabs</h2>
+        <p>Horseshoe crabs are not true crabs but are more closely related to spiders and scorpions. They are often called "living fossils" because they have existed for over 450 million years, predating the dinosaurs.</p>
+        
+        <h4>Global Species</h4>
+        There are four living species of horseshoe crabs in the world:
+        <ul>
+            <li><b><i>Limulus polyphemus</i>:</b> Found along the Atlantic coast of North America and the Gulf of Mexico.</li>
+            <li><b><i>Tachypleus tridentatus</i>:</b> Found in Southeast and East Asia.</li>
+            <li><b><i>Tachypleus gigas</i>:</b> Found in Southeast and South Asia.</li>
+            <li><b><i>Carcinoscorpius rotundicauda</i>:</b> Found along the coasts of India and Southeast Asia.</li>
+        </ul>
+        
+        <h4>A Biomedical Marvel</h4>
+        <p>The most remarkable feature of the horseshoe crab is its blue, copper-based blood. This blood contains amebocytes, which are crucial for producing Limulus Amebocyte Lysate (LAL). The LAL test is the global standard for detecting bacterial endotoxins in vaccines, injectable drugs, and medical devices, ensuring patient safety worldwide.</p>
+        
+        <h4>Ecological and Conservation Importance</h4>
+        <p>Horseshoe crabs play a vital role in coastal ecosystems. Their eggs are a critical food source for migratory shorebirds, such as the Red Knot. Unfortunately, all four species face significant threats from habitat loss and overharvesting, making conservation research more important than ever.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 
 def show_dashboard_page():
     st.title("📊 Data Dashboard")
@@ -134,7 +184,7 @@ def show_dashboard_page():
 
         # Publication Types
         st.subheader("Publication Type Distribution")
-        pub_type_counts = data[data['Publication Type'] != '']['Publication Type'].value_counts()
+        pub_type_counts = data[data['Publication Type'] != '']['Publication Type'].value_acts().nlargest(10)
         st.bar_chart(pub_type_counts)
 
 def show_results_page():
