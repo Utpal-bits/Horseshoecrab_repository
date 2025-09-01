@@ -128,11 +128,11 @@ if data is not None and page == "Search Repository":
     year_range = st.sidebar.slider("Publication Year Range", min_year, max_year, (min_year, max_year))
 
     # Publication Type Filter
-    pub_types = sorted([pt for pt in data['Publication Type'].unique() if pt])
+    pub_types = sorted(data['Publication Type'].unique().tolist())
     selected_pub_types = st.sidebar.multiselect("Publication Type", pub_types, default=pub_types)
     
     # Country Filter
-    countries = sorted([c for c in data['Source Country'].unique() if c])
+    countries = sorted(data['Source Country'].unique().tolist())
     selected_countries = st.sidebar.multiselect("Source Country", countries, default=countries)
 
 st.sidebar.markdown("---")
