@@ -150,8 +150,18 @@ def show_homepage():
     with col1:
         st.markdown("""
         <div class="homepage-content card-1">
-            <h2>How to use:</h2>
-            <p>Navigate to this page to begin your search. Use the main search bar for broad queries. Use the filters in the sidebar to narrow your results by publication year, document type, and source country. Visit data dashboard page for a visual overview of the research landscape.</p>
+            <h2>How to Use This Platform</h2>
+            <p>
+                To get started, open the sidebar menu by clicking the 
+                <span style='font-size: 1.2em; font-weight: bold; color: yellow;'>&gt;</span> 
+                icon at the top-left of your screen. 
+                (<b>Tip:</b> Click here!)
+            </p>
+            <p>From the sidebar, you can navigate to:</p>
+            <ul>
+                <li><b>Search Repository:</b> For detailed searches with advanced filters.</li>
+                <li><b>Data Dashboard:</b> For a high-level visual overview of the data.</li>
+            </ul>
         </div>
         """, unsafe_allow_html=True)
         
