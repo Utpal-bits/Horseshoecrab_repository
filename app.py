@@ -63,7 +63,13 @@ st.markdown("""
         border-radius: 10px;
         color: #e0e1dd;
         height: 100%;
+        border-left: 5px solid #415a77; /* Default border */
     }
+    .card-1 { border-left-color: #0077b6; }
+    .card-2 { border-left-color: #e56b6f; }
+    .card-3 { border-left-color: #52b788; }
+    .card-4 { border-left-color: #f7b801; }
+
     .homepage-content h2 {
         color: #ffffff;
         border-bottom: 2px solid #415a77;
@@ -139,7 +145,7 @@ def show_homepage():
 
     with col1:
         st.markdown("""
-        <div class="homepage-content">
+        <div class="homepage-content card-1">
             <h2>Welcome & How-To</h2>
             <p>This platform is a centralized, searchable database dedicated to the scientific literature on horseshoe crabs. We aim to provide a comprehensive resource for researchers, students, and conservationists.</p>
             
@@ -153,7 +159,7 @@ def show_homepage():
         """, unsafe_allow_html=True)
         
         st.markdown("""
-        <div class="homepage-content" style="margin-top: 2rem;">
+        <div class="homepage-content card-2" style="margin-top: 2rem;">
             <h2>A Biomedical Marvel</h2>
             <p>The most remarkable feature of the horseshoe crab is its blue, copper-based blood. This blood contains amebocytes, which are crucial for producing Limulus Amebocyte Lysate (LAL). The LAL test is the global standard for detecting bacterial endotoxins in vaccines, injectable drugs, and medical devices, ensuring patient safety worldwide.</p>
         </div>
@@ -161,16 +167,16 @@ def show_homepage():
 
     with col2:
         st.markdown("""
-        <div class="homepage-content">
+        <div class="homepage-content card-3">
             <h2>Discover the Living Fossil</h2>
             <p>Horseshoe crabs are not true crabs but are more closely related to spiders and scorpions. They are often called "living fossils" because they have existed for over 450 million years, predating the dinosaurs.</p>
         </div>
         """, unsafe_allow_html=True)
         
-        st.image("https://images.pexels.com/photos/4663737/pexels-photo-4663737.jpeg", caption="The Atlantic horseshoe crab, Limulus polyphemus.")
+        st.image("https://images.pexels.com/photos/1682553/pexels-photo-1682553.jpeg", caption="A horseshoe crab (Limulus polyphemus) on the shore.")
         
         st.markdown("""
-        <div class="homepage-content" style="margin-top: 1.2rem;">
+        <div class="homepage-content card-4" style="margin-top: 1.2rem;">
             <h4>Global Species</h4>
             There are four living species of horseshoe crabs:
             <ul>
